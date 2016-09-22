@@ -14,8 +14,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap.min
-//= require jquery.slimscroll.min
-//= require fastclick.min
-//= require app.min
-//= require demo
 //= require icheck.min

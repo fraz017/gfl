@@ -33,6 +33,8 @@ gem 'cancancan', '~> 1.10'
 
 gem "nested_form"
 
+gem "schema_to_scaffold"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

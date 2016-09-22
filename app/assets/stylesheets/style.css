@@ -1,0 +1,19 @@
+ul.dropdown-menu{
+	width: auto!important;
+	min-height: 50px!important;
+	height: 86px;
+}
+
+ul.dropdown-menu .menu{
+	text-align: center;
+	font-size: 15px;
+}
+
+.alert a{
+	text-decoration: none;
+}
+
+#error_explanation ul{
+	list-style: none;
+	margin-left: -40px;
+}

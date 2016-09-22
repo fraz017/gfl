@@ -17,3 +17,6 @@ ul.dropdown-menu .menu{
 	list-style: none;
 	margin-left: -40px;
 }
+.content{
+	min-height: 710px;
+}

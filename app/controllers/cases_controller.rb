@@ -1,11 +1,18 @@
 class CasesController < ApplicationController
   # before_action :set_case, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource 
 
   # GET /cases
   # GET /cases.json
   def index
-    @cases = Case.all
+    if current_user.admin?
+      @cases = Case.pending
+      @open_cases = Case.open
+      @closed_cases = Case.closed
+      @rejected_cases = Case.rejected
+    else  
+      @cases = current_user.cases
+    end  
   end
 
   # GET /cases/1
@@ -60,6 +67,18 @@ class CasesController < ApplicationController
       format.html { redirect_to cases_url, notice: 'Case was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def accept
+    @case.update(state: :open)
+  end
+
+  def reject
+    @case.update(state: :rejected)
+  end
+
+  def manager
+    @case.update(user_id: params[:user_id])
   end
 
   private

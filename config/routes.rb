@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   
   resources :donations
-  resources :cases
+  resources :cases do 
+    member do 
+      get "accept"
+      get "reject"
+      get "manager"
+    end
+  end
   get 'welcome/index'
 
   devise_for :users, :skip => [:sessions]

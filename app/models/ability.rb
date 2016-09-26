@@ -5,7 +5,8 @@ class Ability
     if user && user.role == :admin
       can :manage, :all
     elsif user && user.role == :manager
-      can :manage, Case
+      can :create, Case
+      can :read, Case, :user_id => user.id
     end
     # Define abilities for the passed in user here. For example:
     #

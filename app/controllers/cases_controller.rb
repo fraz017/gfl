@@ -36,7 +36,7 @@ class CasesController < ApplicationController
 
     respond_to do |format|
       if @case.save
-        format.html { redirect_to @case, notice: 'Case was successfully created.' }
+        format.html { redirect_to cases_path, notice: 'Case was successfully created.' }
         format.json { render :show, status: :created, location: @case }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class CasesController < ApplicationController
   def update
     respond_to do |format|
       if @case.update(case_params)
-        format.html { redirect_to @case, notice: 'Case was successfully updated.' }
+        format.html { redirect_to cases_path, notice: 'Case was successfully updated.' }
         format.json { render :show, status: :ok, location: @case }
       else
         format.html { render :edit }
@@ -77,6 +77,13 @@ class CasesController < ApplicationController
     @case.update(state: :rejected)
   end
 
+  def close
+    @case.update(state: :closed)
+    respond_to do |format|
+      format.js { render file: "cases/reject.js.erb"}
+    end
+  end
+
   def manager
     @case.update(user_id: params[:user_id])
   end
@@ -89,6 +96,6 @@ class CasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_params
-      params.require(:case).permit(:budget, :name, :state_cd, :user, :recieved)
+      params.require(:case).permit(:budget, :name, :state_cd, :user_id, :state, :recieved)
     end
 end

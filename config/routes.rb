@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get "accept"
       get "reject"
       get "manager"
+      get "close"
     end
   end
   get 'welcome/index'

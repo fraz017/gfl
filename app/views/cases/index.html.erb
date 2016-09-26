@@ -24,8 +24,8 @@
               <tbody><tr>
                 <th>Budget</th>
                 <th>Name</th>
-                <th>Assigned Manager</th>
                 <th>Amount Recieved</th>
+                <th>Assigned Manager</th>
                 <th>State</th>
                 <th>Manage Case</th>
               </tr>
@@ -33,7 +33,7 @@
                 <tr>
                   <td><%= c.budget %></td>
                   <td><%= c.name %></td>
-                  <td><%= c.recieved %></td>
+                  <td><%= c.recieved.to_f %></td>
                   <td>
                     <% if c.user %>
                       <%= c.user.first_name %>
@@ -211,14 +211,14 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover table-bordered">
               <tbody><tr>
-                <th>Budget</th>
                 <th>Name</th>
+                <th>Budget</th>
                 <th>Actions</th>
               </tr>
               <%@cases.each do |c|%>
                 <tr>
-                  <td><%= c.budget %></td>
                   <td><%= c.name %></td>
+                  <td><%= c.budget %></td>
                   <td><%= link_to 'Show', c, class: "btn btn-xs btn-primary" %></td>
                 </tr>
               <%end%>

@@ -33,7 +33,7 @@
       <%= f.text_field :mobile_number, :class=> "form-control", :placeholder=>"Mobile Number" %>
     </div>
   </div><!-- /.box-body -->
-
+  <%= f.hidden_field :role_cd, value: 1 %>
   <div class="box-footer">
     <%= f.submit "Submit", :class => "btn btn-primary" %>
   </div>

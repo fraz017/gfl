@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  mount Ckeditor::Engine => '/ckeditor'
   resources :donations
   resources :cases do 
     member do 
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
       get "manager"
       get "close"
     end
+    resources :disbursments
   end
   get 'welcome/index'
 

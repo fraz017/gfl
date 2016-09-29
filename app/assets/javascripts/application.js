@@ -15,3 +15,5 @@
 //= require bootstrap.min
 //= require jquery.slimscroll.min
 //= require fastclick.min
+//= require bootstrap-datepicker
+//= require ckeditor/init

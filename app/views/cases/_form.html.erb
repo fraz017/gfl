@@ -1,44 +1,218 @@
-<%= form_for(@case) do |f| %>
-  <% if @case.errors.any? %>
-    <div id="error_explanation" class="alert alert-danger">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <h2>Error!</h2>
+<section class="content">
+  <%= form_for(@case) do |f| %>
+    <div class="row">
+      <% if @case.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <h2>Error!</h2>
 
-      <ul>
-      <% @case.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @case.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+      <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Patient Details</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="box-body">
+            <div class="form-group">
+              <label>Case Refered By</label>
+              <%= f.text_field :refered_by, :class=> "form-control", :placeholder=>"Refered By" %>
+            </div>
+
+            <div class="form-group">
+              <label>Case Notification Date</label>
+              <%= f.text_field :notification_date, :class=> "form-control datepicker", :placeholder=>"Please Select a Date" %>
+            </div>
+
+            <div class="form-group">
+              <label>Patient Name</label>
+              <%= f.text_field :name, :class=> "form-control", :placeholder=>"Patient Name" %>
+            </div>
+
+            <div class="form-group">
+              <label>CNIC</label>
+              <%= f.text_field :cnic, :class=> "form-control", :placeholder=>"CNIC" %>
+            </div>
+
+            <div class="form-group">
+              <label>Nature of Problem</label>
+              <%= f.text_field :problem, :class=> "form-control", :placeholder=>"Nature of Problem" %>
+            </div>
+
+            <div class="form-group">
+              <label>Age</label>
+              <%= f.text_field :age, :class=> "form-control", :placeholder=>"Age" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.radio_button :gender, 'Male' %> 
+              <label>Male</label>&emsp; 
+              <%= f.radio_button :gender, 'Female' %>
+              <label>Female</label>
+            </div>
+
+            <div class="form-group">
+              <label>Treatment Cost</label>
+              <%= f.text_field :budget, :class=> "form-control", :placeholder=>"Treatment Cost" %>
+            </div>
+
+            <div class="form-group">
+              <label>Treatment Duration</label>
+              <%= f.text_field :duration, :class=> "form-control", :placeholder=>"Treatment Duration" %>
+            </div>
+          </div>    
+          
+        </div>
+      </div>
+      <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Patient Contact & Hospital Details</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="box-body">
+            <div class="form-group">
+              <label>Contact Number</label>
+              <%= f.text_field :contact_number, :class=> "form-control", :placeholder=>"Contact Number" %>
+            </div>
+
+            <div class="form-group">
+              <label>Contact Name</label>
+              <%= f.text_field :contact_name, :class=> "form-control", :placeholder=>"Contact Name" %>
+            </div>
+
+            <div class="form-group">
+              <label>Contact Relation</label>
+              <%= f.text_field :contact_relation, :class=> "form-control", :placeholder=>"Contact Relation" %>
+            </div>
+
+            <div class="form-group">
+              <label>Address</label>
+              <%= f.text_area :address, :class=> "form-control", :placeholder=>"Address" %>
+            </div>
+
+            <div class="form-group">
+              <label>Treating Doctor</label>
+              <%= f.text_field :doctor, :class=> "form-control", :placeholder=>"Treating Doctor" %>
+            </div>
+
+            <div class="form-group">
+              <label>Treating Doctor Contact</label>
+              <%= f.text_field :doctor_contact, :class=> "form-control", :placeholder=>"Treating Doctor Contact" %>
+            </div>
+
+            <div class="form-group">
+              <label>Treating Hospital</label>
+              <%= f.text_field :hospital, :class=> "form-control", :placeholder=>"Treating Hospital" %>
+            </div>
+
+            <div class="form-group">
+              <label>Verirfication Document Supplied</label>
+            </div>
+
+            <div class="form-group">
+              <%= f.radio_button :verification_doc, 'Yes' %> 
+              <label>Yes</label>&emsp; 
+              <%= f.radio_button :verification_doc, 'No' %>
+              <label>No</label>
+            </div>
+          </div>    
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Bank Transfer Details</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="box-body">
+            <div class="form-group">
+              <label>Benificiary Name</label>
+              <%= f.text_field :benificiary_name, :class=> "form-control", :placeholder=>"Benificiary Name" %>
+            </div>
+
+            <div class="form-group">
+              <label>Benificiary Address</label>
+              <%= f.text_field :benificiary_address, :class=> "form-control", :placeholder=>"Benificiary Address" %>
+            </div>
+
+            <div class="form-group">
+              <label>Benificiary Bank</label>
+              <%= f.text_field :benificiary_bank, :class=> "form-control", :placeholder=>"Benificiary Bank" %>
+            </div>
+
+            <div class="form-group">
+              <label>Benificiary Bank Address</label>
+              <%= f.text_field :bank_address, :class=> "form-control", :placeholder=>"Benificiary Bank Address" %>
+            </div>
+
+            <div class="form-group">
+              <label>Account Number</label>
+              <%= f.text_field :account_number, :class=> "form-control", :placeholder=>"Account Number" %>
+            </div>
+
+            <div class="form-group">
+              <label>IBAN</label>
+              <%= f.text_field :iban, :class=> "form-control", :placeholder=>"IBAN" %>
+            </div>
+
+            <div class="form-group">
+              <label>Swift Code</label>
+              <%= f.text_field :swift_code, :class=> "form-control", :placeholder=>"Swift Code" %>
+            </div>
+          </div>
+        </div>     
+      </div>
+      <div class="col-md-6">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Case Management</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="box-body">
+            <div class="form-group">
+              <label>Verification Method</label>
+              <%= f.text_area :verification_method, :class=> "form-control", :placeholder=>"Verification Method" %>
+            </div>
+
+            <% if current_user.admin? %>
+              <div class="form-group">
+                <label>Assign Manager</label>
+                <%= f.collection_select :user_id, User.all, :id, :first_name, {:prompt=>"Select a Manager"}, {:class=> "form-control"} %>
+              </div>
+
+              <div class="form-group">
+                <label>State</label>
+                <%= f.select :state_cd, [['Pending', 0 ],['Open', 2], ['Reject', 1], ["Complete", 3]], {:prompt=>"Select a Manager"}, {:class=> "form-control"} %>
+              </div>
+            <% end %>
+          </div>
+        </div>     
+      </div>
+    </div>
+    <div class="box-footer">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
     </div>
   <% end %>
+</section> 
 
-  <div class="box-body">
-    <div class="form-group">
-      <label>Budget</label>
-      <%= f.text_field :budget, :class=> "form-control", :placeholder=>"Budget" %>
-    </div>
-    <div class="form-group">
-      <label>Name</label>
-      <%= f.text_field :name, :class=> "form-control", :placeholder=>"Name" %>
-    </div>
-    <div class="form-group">
-      <label>Amount Recieved</label>
-      <%= f.text_field :recieved, :class=> "form-control", :placeholder=>"Amount Recieved" %>
-    </div>
-    <% if current_user.admin? %>
-      <div class="form-group">
-        <label>Assign Manager</label>
-        <%= f.collection_select :user_id, User.all, :id, :first_name, {:prompt=>"Select a Manager"}, {:class=> "form-control"} %>
-      </div>
+<script type="text/javascript">
+  $('.datepicker').datepicker({
+    format: 'dd/mm/yyyy'
+  });
+</script> 
+  
 
-      <div class="form-group">
-        <label>State</label>
-        <%= f.select :state_cd, [['Pending', 0 ],['Open', 2], ['Reject', 1], ["Complete", 3]], {:prompt=>"Select a Manager"}, {:class=> "form-control"} %>
-      </div>
-    <% end %>  
-  </div><!-- /.box-body -->
 
-  <div class="box-footer">
-    <%= f.submit "Submit", :class => "btn btn-primary" %>
-  </div>
-<% end %>
+

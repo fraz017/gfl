@@ -35,6 +35,8 @@ gem "nested_form"
 
 gem "schema_to_scaffold"
 
+gem 'ckeditor'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,0 +1,1 @@
+json.array! @disbursments, partial: 'disbursments/disbursment', as: :disbursment

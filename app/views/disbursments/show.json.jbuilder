@@ -1,0 +1,1 @@
+json.partial! "disbursments/disbursment", disbursment: @disbursment

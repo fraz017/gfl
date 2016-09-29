@@ -33,7 +33,7 @@ class CasesController < ApplicationController
   # POST /cases.json
   def create
     @case = Case.new(case_params)
-
+    @case.user_id = current_user.id
     respond_to do |format|
       if @case.save
         format.html { redirect_to cases_path, notice: 'Case was successfully created.' }
@@ -96,6 +96,6 @@ class CasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_params
-      params.require(:case).permit(:budget, :name, :state_cd, :user_id, :state, :recieved)
+      params.require(:case).permit(:budget, :name, :state_cd, :user_id, :state, :recieved, :notification_date, :refered_by, :age, :gender, :contact_number, :contact_relation, :contact_name, :address, :cnic, :problem, :duration, :doctor, :hospital, :doctor_contact, :verification_doc, :benificiary_name,  :benificiary_bank, :bank_address, :account_number, :iban, :swift_code, :verification_method)
     end
 end

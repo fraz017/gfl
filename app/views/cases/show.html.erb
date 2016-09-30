@@ -57,12 +57,21 @@
         <%end%>
         <!-- END timeline item -->
         <!-- END timeline item -->
-        <li>
+        <%if @disbursments.count > 0%>
+          <li>
+            <i class="fa fa-clock-o bg-gray"></i>
+            <div class="timeline-item">
+              <h3 class="timeline-header">Case Disbursments Started by <%= @case.user.first_name %> on <%= @disbursments.last.created_at.strftime("%-d %b. %Y") %></h3>
+            </div>
+          </li>
+        <% else %>
+          <li>
           <i class="fa fa-clock-o bg-gray"></i>
           <div class="timeline-item">
-            <h3 class="timeline-header">Case Disbursments Started by <%= @case.user.first_name %> on <%= @disbursments.last.created_at.strftime("%-d %b. %Y") %></h3>
+            <h3 class="timeline-header">No Progress on this Case yet</h3>
           </div>
         </li>
+        <% end %>  
       </ul>
     </div><!-- /.col -->
   </div><!-- /.row -->

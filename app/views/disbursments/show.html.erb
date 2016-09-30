@@ -29,6 +29,13 @@
 						  <strong>Details:</strong>
 						  <%= @disbursment.details.html_safe %>
 						</p>
+					</div>
+
+					<div class="form-group">
+						<p>
+						  <strong>Video:</strong>
+						  <%= videojs_rails source: @disbursment.video.url, setup: "{}", controls: true, width:"400", height: "200" %>
+						</p>
 					</div>	
 				</div>
 			</div>

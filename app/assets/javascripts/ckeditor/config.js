@@ -7,6 +7,7 @@ CKEDITOR.editorConfig = function(config) {
   config.filebrowserImageBrowseUrl = "/ckeditor/pictures";
   config.filebrowserImageUploadUrl = "/ckeditor/pictures";
   config.filebrowserUploadUrl = "/ckeditor/attachment_files";
+  config.extraPlugins = "attachment";
   config.toolbar_Pure = [
     '/', {
       name: 'basicstyles',
@@ -25,7 +26,7 @@ CKEDITOR.editorConfig = function(config) {
       items: ['TextColor', 'BGColor']
     }, {
       name: 'insert',
-      items: ['Image', 'Table', 'video']
+      items: ['Image', 'Table', 'attachment']
     }
   ];
   config.toolbar = 'Pure';

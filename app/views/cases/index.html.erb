@@ -49,7 +49,7 @@
                   </td>
                   <td><%= link_to 'Accept', accept_case_path(c), class: "btn btn-xs btn-success", :remote => true%>
                   <%= link_to 'Reject', reject_case_path(c), class: "btn btn-xs btn-danger", :remote => true %></td>
-                  <td><%= link_to 'Show', c, class: "btn btn-xs btn-primary" %>
+                  <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -80,6 +80,7 @@
                 <th>Amount Recieved</th>
                 <th>Assigned Manager</th>
                 <th>State</th>
+                <th>Disbursments</th>
                 <th>Actions</th>
               </tr>
               <%@open_cases.each do |c|%>
@@ -101,7 +102,8 @@
                     <% end %> 
                   </td>
                   <td><%= link_to 'Complete', close_case_path(c), class: "btn btn-xs btn-primary", :remote => true %></td>
-                  <td><%= link_to 'Show', c, class: "btn btn-xs btn-primary" %>
+                  <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
+                  <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -139,7 +141,7 @@
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
                   <td><span class="label label-danger"> Rejected </span></td>
-                  <td><%= link_to 'Show', c, class: "btn btn-xs btn-primary" %>
+                  <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -170,6 +172,7 @@
                 <th>Amount Recieved</th>
                 <th>Assigned Manager</th>
                 <th>State</th>
+                <th>Disbursments</th>
                 <th>Actions</th>
               </tr>
               <%@closed_cases.each do |c|%>
@@ -179,7 +182,8 @@
                   <td><%= c.recieved.to_f %></td>
                   <td><%= c.user.first_name %></td>
                   <td><span class="label label-primary"> Closed </span></td>
-                  <td><%= link_to 'Show', c, class: "btn btn-xs btn-primary" %>
+                  <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
+                  <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -213,13 +217,15 @@
               <tbody><tr>
                 <th>Name</th>
                 <th>Budget</th>
+                <th>Disbursments</th>
                 <th>Actions</th>
               </tr>
               <%@cases.each do |c|%>
                 <tr>
                   <td><%= c.name %></td>
                   <td><%= c.budget %></td>
-                  <td><%= link_to 'Show', c, class: "btn btn-xs btn-primary" %></td>
+                  <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
+                  <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %></td>
                 </tr>
               <%end%>
               <%if @cases.count < 1%>

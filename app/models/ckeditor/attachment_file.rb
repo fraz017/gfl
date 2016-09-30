@@ -5,7 +5,8 @@ class Ckeditor::AttachmentFile < Ckeditor::Asset
 
   validates_attachment_presence :data
   validates_attachment_size :data, less_than: 100.megabytes
-  validates_attachment_content_type :data, :content_type => ['video/quicktime', 'video/mp4', 'video/mpeg', 'video/mpeg4']
+  do_not_validate_attachment_file_type :data
+  # validates_attachment_content_type :data, , :content_type => ['video/quicktime', 'video/mp4', 'video/mpeg', 'video/mpeg4']
 
   def url_thumb
     @url_thumb ||= Ckeditor::Utils.filethumb(filename)

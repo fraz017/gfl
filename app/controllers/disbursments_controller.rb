@@ -5,7 +5,7 @@ class DisbursmentsController < ApplicationController
   # GET /disbursments
   # GET /disbursments.json
   def index
-    @disbursments = Disbursment.all
+    @disbursments = @case.disbursments
   end
 
   # GET /disbursments/1
@@ -26,10 +26,10 @@ class DisbursmentsController < ApplicationController
   # POST /disbursments.json
   def create
     @disbursment = Disbursment.new(disbursment_params)
-
+    @disbursment.case_id = @case.id
     respond_to do |format|
       if @disbursment.save
-        format.html { redirect_to case_disbursment_path(@case, @disbursement), notice: 'Disbursment was successfully created.' }
+        format.html { redirect_to case_disbursment_path(@case, @disbursment), notice: 'Disbursment was successfully created.' }
         format.json { render :show, status: :created, location: @disbursment }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class DisbursmentsController < ApplicationController
   def update
     respond_to do |format|
       if @disbursment.update(disbursment_params)
-        format.html { redirect_to case_disbursment_path(@case, @disbursement), notice: 'Disbursment was successfully updated.' }
+        format.html { redirect_to case_disbursment_path(@case, @disbursment), notice: 'Disbursment was successfully updated.' }
         format.json { render :show, status: :ok, location: @disbursment }
       else
         format.html { render :edit }
@@ -70,6 +70,6 @@ class DisbursmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def disbursment_params
-      params.require(:disbursment).permit(:amount, :details, :case_id)
+      params.require(:disbursment).permit(:amount, :details, :case_id, :video)
     end
 end

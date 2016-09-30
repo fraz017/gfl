@@ -1,29 +1,69 @@
-<p id="notice"><%= notice %></p>
+  <!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Timeline
+    <small>Case</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/cases">Case</a></li>
+    <li class="active">Timeline</li>
+  </ol>
+</section>
 
-<p>
-  <strong>Budget:</strong>
-  <%= @case.budget %>
-</p>
+<!-- Main content -->
+<section class="content">
 
-<p>
-  <strong>Name:</strong>
-  <%= @case.name %>
-</p>
+  <!-- row -->
+  <div class="row">
+    <div class="col-md-12">
+      <!-- The time line -->
+      <ul class="timeline">
+        <% @disbursments.each do |dis| %>
+          <!-- timeline time label -->
+          <li class="time-label">
+            <span class="bg-green">
+              <%= dis.created_at.strftime("%-d %b. %Y") %>
+            </span>
+          </li>
+          <!-- END timeline item -->
+          <!-- timeline item -->
+          <li>
+            <i class="fa fa-money bg-purple"></i>
+            <div class="timeline-item">
+              <h3 class="timeline-header no-border"><b>Rs. <%= dis.amount %></b> Disbursed To this case</h3>
+            </div>
+          </li>
+          <!-- END timeline item -->
+          <!-- timeline item -->
+          <li>
+            <i class="fa fa-comments bg-yellow"></i>
+            <div class="timeline-item">
+              <h3 class="timeline-header">Case Disbursments Details and Comments</h3>
+              <div class="timeline-body">
+                <%= dis.details.html_safe %>
+              </div>
+            </div>
+          </li>
 
-<p>
-  <strong>State cd:</strong>
-  <%= @case.state_cd %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @case.user %>
-</p>
-
-<p>
-  <strong>Recieved:</strong>
-  <%= @case.recieved %>
-</p>
-
-<%= link_to 'Edit', edit_case_path(@case) %> |
-<%= link_to 'Back', cases_path %>
+          <li>
+            <i class="fa fa-video-camera bg-maroon"></i>
+            <div class="timeline-item">
+              <h3 class="timeline-header">Case Disbursment Related Video</h3>
+              <div class="timeline-body">
+                <%= videojs_rails source: dis.video.url, setup: "{}", controls: true, width:"100%", height: "450" %>
+              </div>
+            </div>
+          </li>
+        <%end%>
+        <!-- END timeline item -->
+        <!-- END timeline item -->
+        <li>
+          <i class="fa fa-clock-o bg-gray"></i>
+          <div class="timeline-item">
+            <h3 class="timeline-header">Case Disbursments Started by <%= @case.user.first_name %> on <%= @disbursments.last.created_at.strftime("%-d %b. %Y") %></h3>
+          </div>
+        </li>
+      </ul>
+    </div><!-- /.col -->
+  </div><!-- /.row -->
+</section>

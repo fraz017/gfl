@@ -17,3 +17,4 @@
 //= require fastclick.min
 //= require bootstrap-datepicker
 //= require ckeditor/init
+//= require video

@@ -18,6 +18,7 @@ class CasesController < ApplicationController
   # GET /cases/1
   # GET /cases/1.json
   def show
+    @disbursments = @case.disbursments.order(id: :desc)
   end
 
   # GET /cases/new

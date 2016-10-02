@@ -1,21 +1,21 @@
 <section class="content-header">
   <h1>
     Dashboard
-    <small>Disbursment</small>
+    <small>Requests</small>
   </h1>
   <ol class="breadcrumb">
   	<li><%= link_to "Cases", cases_path %></li>
-    <li><%= link_to "Disbursments", case_disbursments_path %></li>
-    <li class="active">Add Disbursment</li>
+    <li><%= link_to 'Requests', case_requests_path(params[:case_id]) %></li>
+    <li class="active">Edit Request</li>
   </ol>
 </section>
 <section class="content">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
 	    <!-- general form elements -->
 	    <div class="box box-primary">
 	      <div class="box-header with-border">
-	        <h3 class="box-title">Add Disbursment</h3>
+	        <h3 class="box-title">Edit Request</h3>
 	      </div><!-- /.box-header -->
 	      <!-- form start -->
 
@@ -23,7 +23,8 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section>			
+
 <script>
   $("ul.sidebar-menu li").removeClass("active")
 </script>  

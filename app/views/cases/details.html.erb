@@ -1,0 +1,178 @@
+<section class="content-header">
+  <h1>
+    Dashboard
+    <small>Case</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/cases">Case Managers</a></li>
+    <li class="active">View Case</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Patient Details</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-user margin-r-5"></i>  Case Refered By</strong>
+          <p class="text-muted">
+            <%= @case.refered_by %>
+          </p>
+
+          <hr>
+
+          <strong><i class="fa fa-calendar margin-r-5"></i> Case Notification Date</strong>
+          <p class="text-muted"><%= @case.notification_date %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-user margin-r-5"></i> Patient Name</strong>
+          <p class="text-muted"><%= @case.name %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-credit-card-alt margin-r-5"></i> CNIC</strong>
+          <p class="text-muted"><%= @case.cnic %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-exclamation-triangle margin-r-5"></i> Nature of Problem</strong>
+          <p class="text-muted"><%= @case.problem %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-calendar-check-o margin-r-5"></i> Age</strong>
+          <p class="text-muted"><%= @case.age %></p>
+
+          <hr>
+
+          <strong><i class="fa <%= @case.gender == 'Male' ? 'fa-male' : 'fa-female' %> margin-r-5"></i> Gender</strong>
+          <p class="text-muted"><%= @case.gender %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-money margin-r-5"></i> Treatment Cost</strong>
+          <p class="text-muted"><%= @case.budget %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-calendar margin-r-5"></i> Treatment Duration</strong>
+          <p class="text-muted"><%= @case.duration %></p>
+
+        </div><!-- /.box-body -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Patient Contact & Hospital Details</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-phone margin-r-5"></i>  Contact Number</strong>
+          <p class="text-muted">
+            <%= @case.contact_number %>
+          </p>
+
+          <hr>
+
+          <strong><i class="fa fa-user margin-r-5"></i> Contact Name</strong>
+          <p class="text-muted"><%= @case.contact_name %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-user margin-r-5"></i> Contact Relation</strong>
+          <p class="text-muted"><%= @case.contact_relation %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+          <p class="text-muted"><%= @case.address %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-user-md margin-r-5"></i> Treating Doctor</strong>
+          <p class="text-muted"><%= @case.doctor %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-phone margin-r-5"></i> Treating Doctor Contact</strong>
+          <p class="text-muted"><%= @case.doctor_contact %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-hospital-o margin-r-5"></i> Treating Hospital</strong>
+          <p class="text-muted"><%= @case.hospital %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-file-text margin-r-5"></i> Verirfication Document Supplied</strong>
+          <p class="text-muted"><%= @case.verification_doc? ? "Yes" : "No" %></p>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Bank Transfer Details</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-user margin-r-5"></i> Benificiary Name</strong>
+          <p class="text-muted">
+            <%= @case.benificiary_name %>
+          </p>
+
+          <hr>
+
+          <strong><i class="fa fa-map-marker margin-r-5"></i> Benificiary Address</strong>
+          <p class="text-muted"><%= @case.benificiary_address %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-university margin-r-5"></i> Benificiary Bank</strong>
+          <p class="text-muted"><%= @case.benificiary_bank %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-map-marker margin-r-5"></i> Benificiary Bank Address</strong>
+          <p class="text-muted"><%= @case.bank_address %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-lock margin-r-5"></i> Account Number</strong>
+          <p class="text-muted"><%= @case.account_number %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-university margin-r-5"></i> IBAN</strong>
+          <p class="text-muted"><%= @case.iban %></p>
+
+          <hr>
+
+          <strong><i class="fa fa-university margin-r-5"></i> Swift Code</strong>
+          <p class="text-muted"><%= @case.swift_code %></p>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Case Management</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-get-pocket margin-r-5"></i>  Verification Method</strong>
+          <p class="text-muted">
+            <%= @case.verification_method %>
+          </p>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("ul.sidebar-menu li").removeClass("active")
+  $("ul.sidebar-menu li#cases").addClass("active")
+</script>  

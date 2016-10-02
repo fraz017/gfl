@@ -4,6 +4,7 @@
     <small>Disbursment</small>
   </h1>
   <ol class="breadcrumb">
+  	<li><%= link_to "Cases", cases_path %></li>
     <li><%= link_to "Disbursments", case_disbursments_path %></li>
     <li class="active">Show Disbursment</li>
   </ol>
@@ -42,4 +43,6 @@
 		</div>
 	</div>
 </section>
-
+<script>
+  $("ul.sidebar-menu li").removeClass("active")
+</script>  

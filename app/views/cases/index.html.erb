@@ -22,11 +22,12 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover table-bordered">
               <tbody><tr>
-                <th>Budget</th>
-                <th>Name</th>
+                <th>Treatment Cost</th>
+                <th>Patient Name</th>
                 <th>Amount Recieved</th>
                 <th>Assigned Manager</th>
                 <th>State</th>
+                <th>Requests</th>
                 <th>Manage Case</th>
               </tr>
               <%@cases.each do |c|%>
@@ -49,7 +50,15 @@
                   </td>
                   <td><%= link_to 'Accept', accept_case_path(c), class: "btn btn-xs btn-success", :remote => true%>
                   <%= link_to 'Reject', reject_case_path(c), class: "btn btn-xs btn-danger", :remote => true %></td>
+                  <td>
+                    <%if c.requests.count > 0%>
+                      <%= link_to c.requests.count, case_requests_path(c), class: "btn btn-xs btn-primary" %>
+                    <%else%>
+                      <%= link_to c.requests.count, "javascript:void(0)", class: "btn btn-xs btn-primary" %>
+                    <%end%>  
+                  </td>
                   <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
+                  <%= link_to 'Case Details', details_case_path(c), class: "btn btn-xs btn-success" %>  
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -75,12 +84,13 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover table-bordered">
               <tbody><tr>
-                <th>Budget</th>
-                <th>Name</th>
+                <th>Treatment Cost</th>
+                <th>Patient Name</th>
                 <th>Amount Recieved</th>
                 <th>Assigned Manager</th>
                 <th>State</th>
                 <th>Disbursments</th>
+                <th>Requests</th>
                 <th>Actions</th>
               </tr>
               <%@open_cases.each do |c|%>
@@ -103,7 +113,15 @@
                   </td>
                   <td><%= link_to 'Complete', close_case_path(c), class: "btn btn-xs btn-primary", :remote => true %></td>
                   <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
+                  <td>
+                    <%if c.requests.count > 0%>
+                      <%= link_to c.requests.count, case_requests_path(c), class: "btn btn-xs btn-primary" %>
+                    <%else%>
+                      <%= link_to c.requests.count, "javascript:void(0)", class: "btn btn-xs btn-primary" %>
+                    <%end%>
+                  </td>
                   <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
+                  <%= link_to 'Case Details', details_case_path(c), class: "btn btn-xs btn-success" %>
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -129,10 +147,11 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover table-bordered">
               <tbody><tr>
-                <th>Budget</th>
-                <th>Name</th>
+                <th>Treatment Cost</th>
+                <th>Patient Name</th>
                 <th>Amount Recieved</th>
                 <th>State</th>
+                <th>Requests</th>
                 <th>Actions</th>
               </tr>
               <%@rejected_cases.each do |c|%>
@@ -141,7 +160,15 @@
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
                   <td><span class="label label-danger"> Rejected </span></td>
+                  <td>
+                    <%if c.requests.count > 0%>
+                      <%= link_to c.requests.count, case_requests_path(c), class: "btn btn-xs btn-primary" %>
+                    <%else%>
+                      <%= link_to c.requests.count, "javascript:void(0)", class: "btn btn-xs btn-primary" %>
+                    <%end%>
+                  </td>
                   <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
+                  <%= link_to 'Case Details', details_case_path(c), class: "btn btn-xs btn-success" %>
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -167,12 +194,13 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover table-bordered">
               <tbody><tr>
-                <th>Budget</th>
-                <th>Name</th>
+                <th>Treatment Cost</th>
+                <th>Patient Name</th>
                 <th>Amount Recieved</th>
                 <th>Assigned Manager</th>
                 <th>State</th>
                 <th>Disbursments</th>
+                <th>Requests</th>
                 <th>Actions</th>
               </tr>
               <%@closed_cases.each do |c|%>
@@ -183,7 +211,15 @@
                   <td><%= c.user.first_name %></td>
                   <td><span class="label label-primary"> Closed </span></td>
                   <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
+                  <td>
+                    <%if c.requests.count > 0%>
+                      <%= link_to c.requests.count, case_requests_path(c), class: "btn btn-xs btn-primary" %>
+                    <%else%>
+                      <%= link_to c.requests.count, "javascript:void(0)", class: "btn btn-xs btn-primary" %>
+                    <%end%>
+                  </td>
                   <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
+                  <%= link_to 'Case Details', details_case_path(c), class: "btn btn-xs btn-success" %>
                   <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
                   <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
                 </tr>
@@ -215,9 +251,10 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-hover table-bordered">
               <tbody><tr>
-                <th>Name</th>
-                <th>Budget</th>
+                <th>Patient Name</th>
+                <th>Treatment Cost</th>
                 <th>Disbursments</th>
+                <th>Requests</th>  
                 <th>Actions</th>
               </tr>
               <%@cases.each do |c|%>
@@ -225,7 +262,18 @@
                   <td><%= c.name %></td>
                   <td><%= c.budget %></td>
                   <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
-                  <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %></td>
+                  <td><%= link_to 'Requests', case_requests_path(c), class: "btn btn-xs btn-success" %></td>
+                  <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %>
+                    <% if can? :read, c %>
+                      <%= link_to 'Case Details', details_case_path(c), class: "btn btn-xs btn-success" %>
+                    <% end %>
+                    <% if can? :update, c %>
+                      <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
+                    <%end%>
+                    <% if can? :destroy, c %>  
+                      <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %>
+                    <%end%>
+                  </td>
                 </tr>
               <%end%>
               <%if @cases.count < 1%>

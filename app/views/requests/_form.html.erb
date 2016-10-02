@@ -1,0 +1,24 @@
+<%= form_for([@request.case, @request]) do |f| %>
+  <% if @request.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <h2>Error!</h2>
+
+      <ul>
+      <% @request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="box-body">
+    <div class="form-group">
+      <label>Request Message</label>
+      <%= f.text_area :content, :class=> "form-control", :placeholder=>"Request Message" %>
+    </div>
+  </div><!-- /.box-body -->
+  <div class="box-footer">
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
+  </div>
+<% end %>

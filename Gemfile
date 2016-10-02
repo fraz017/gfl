@@ -39,6 +39,8 @@ gem 'ckeditor'
 
 gem 'videojs_rails'
 
+gem 'nested_scaffold'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

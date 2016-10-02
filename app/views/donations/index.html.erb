@@ -7,54 +7,103 @@
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Listing Donations</h3>
-          <hr>
-          <h3>Funds Available: <b>Rs <%= funds %> </b></h3>
-          <div class="box-tools">
-            <div class="input-group">
-              <%= link_to '<i class="fa fa-plus"></i> Add Donation'.html_safe, new_donation_path, class: "btn btn-success" %>
-            </div>
-          </div>
-        </div><!-- /.box-header -->
-        <br>
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#incoming" data-toggle="tab">Incoming Donations</a></li>
+          <li><a href="#outgoing" data-toggle="tab">Outgoing Donations</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="incoming">
+            <div class="box-header">
+              <h3>Funds Available: <b>Rs <%= funds %> </b></h3>
+              <div class="box-tools">
+                <div class="input-group">
+                  <%= link_to '<i class="fa fa-plus"></i> Add Donation'.html_safe, new_donation_path, class: "btn btn-success" %>
+                </div>
+              </div>
+            </div><!-- /.box-header -->
+            <br>
 
-        <div class="box-body table-responsive no-padding"> 
+            <div class="box-body table-responsive no-padding"> 
 
-          <table class="table table-hover table-bordered">
-            <tbody><tr>
-              <th>Amount</th>
-              <th>Name</th>
-              <th>City</th>
-              <th>State</th>
-              <th>Country</th>
-              <th>Contact number</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-            <%@donations.each do |donation|%>
-              <tr>
-                <td><%= donation.amount %></td>
-                <td><%= donation.name %></td>
-                <td><%= donation.city %></td>
-                <td><%= donation.state %></td>
-                <td><%= donation.country %></td>
-                <td><%= donation.contact_number %></td>
-                <td><%= donation.email %></td>
-                <td><%= link_to 'Show', donation, class: "btn btn-xs btn-primary" %>
-                <%= link_to 'Edit', edit_donation_path(donation), class: "btn btn-xs btn-warning" %>
-                <%= link_to 'Destroy', donation, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
-              </tr>
-            <%end%>
-            <%if @donations.count < 1%>
-            <tr>
-              <td colspan="5" class="box-title"><h3>You have not recieved any donations yet. Add some</h3></td>
-            </tr>
-            <%end%>
-          </tbody></table>
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
+              <table class="table table-hover table-bordered">
+                <tbody><tr>
+                  <th>Amount</th>
+                  <th>Name</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Contact number</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+                <%@donations.each do |donation|%>
+                  <tr>
+                    <td><%= donation.amount %></td>
+                    <td><%= donation.name %></td>
+                    <td><%= donation.city %></td>
+                    <td><%= donation.state %></td>
+                    <td><%= donation.country %></td>
+                    <td><%= donation.contact_number %></td>
+                    <td><%= donation.email %></td>
+                    <td><%= link_to 'Show', donation, class: "btn btn-xs btn-primary" %>
+                    <%= link_to 'Edit', edit_donation_path(donation), class: "btn btn-xs btn-warning" %>
+                    <%= link_to 'Destroy', donation, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
+                  </tr>
+                <%end%>
+                <%if @donations.count < 1%>
+                <tr>
+                  <td colspan="5" class="box-title"><h3>You have not recieved any donations yet. Add some</h3></td>
+                </tr>
+                <%end%>
+              </tbody></table>
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+          <div class="tab-pane" id="outgoing">
+            <div class="box-header">
+              <h3 class="box-title">Disbursement on Cases</h3>
+            </div><!-- /.box-header -->
+            <br>
+
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover table-bordered">
+                <tbody><tr>
+                  <th>Treatment Cost</th>
+                  <th>Patient Name</th>
+                  <th>Amount Recieved</th>
+                  <th>Actions</th>
+                </tr>
+                <%@cases.each do |c|%>
+                  <tr>
+                    <td><%= c.budget %></td>
+                    <td><%= c.name %></td>
+                    <td><%= c.recieved.to_f %></td>
+                    <td>
+                      <% if c.user %>
+                        <%= c.user.first_name %>
+                      <% else %>
+                        <%= select_tag :user_id, options_for_select(User.all.collect{ |u| [u.first_name, u.id] }), {:prompt=>"Select a Manager", class: "form-control", 
+                            data: {
+                              remote: true,
+                              url: manager_case_path(c)
+                            }
+                          }
+                        %>
+                      <% end %> 
+                    </td>
+                    <td><%= link_to 'Timeline', c, class: "btn btn-xs btn-primary" %></td>
+                  </tr>
+                <%end%>
+                <%if @cases.count < 1%>
+                <tr>
+                  <td colspan="6" class="box-title"><h3>No outgoing funds yet</h3></td>
+                </tr>
+                <%end%>
+              </tbody></table>
+            </div><!-- /.box-body -->
+          </div><!-- /.tab-pane -->
+        </div><!-- /.tab-content -->
+      </div>
     </div>
   </div>
 </section>  

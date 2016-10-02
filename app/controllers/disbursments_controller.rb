@@ -1,7 +1,7 @@
 class DisbursmentsController < ApplicationController
-  before_action :set_case #, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
-
+  # before_action :set_case #, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :case
+  load_and_authorize_resource :disbursment, :through => :case
   # GET /disbursments
   # GET /disbursments.json
   def index

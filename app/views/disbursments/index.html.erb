@@ -3,6 +3,11 @@
     Dashboard
     <small>Disbursment</small>
   </h1>
+
+  <ol class="breadcrumb">
+    <li><%= link_to "Cases", cases_path %></li>
+    <li class="active">Disbursments</li>
+  </ol>
 </section>
 <section class="content">
   <div class="row">
@@ -44,3 +49,6 @@
     </div>
   </div>
 </section>
+<script>
+  $("ul.sidebar-menu li").removeClass("active")
+</script>  

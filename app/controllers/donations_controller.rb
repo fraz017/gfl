@@ -6,6 +6,7 @@ class DonationsController < ApplicationController
   # GET /donations.json
   def index
     @donations = Donation.all
+    @cases = Case.all.where("recieved is Not ? and recieved > ?", nil, 0.0)
   end
 
   # GET /donations/1

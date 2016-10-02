@@ -1,4 +1,6 @@
 class Case < ActiveRecord::Base
+	
+  has_many :requests
 	as_enum :state, pending: 0, rejected: 1, open: 2, closed: 3
 	belongs_to :user
 	has_many :medium

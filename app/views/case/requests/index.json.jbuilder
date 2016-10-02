@@ -1,0 +1,1 @@
+json.array! @case_requests, partial: 'case_requests/case_request', as: :case_request

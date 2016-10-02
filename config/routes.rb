@@ -8,8 +8,10 @@ Rails.application.routes.draw do
       get "reject"
       get "manager"
       get "close"
+      get "details"
     end
     resources :disbursments
+    resources :requests
   end
   get 'welcome/index'
 

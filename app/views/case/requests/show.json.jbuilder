@@ -1,0 +1,1 @@
+json.partial! "case_requests/case_request", case_request: @case_request

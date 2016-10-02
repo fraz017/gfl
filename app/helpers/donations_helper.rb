@@ -1,7 +1,6 @@
 module DonationsHelper
 	def funds
-		month = Date.today.strftime("%B")
-		f = Fund.where(month: month).first
+		f = Fund.find(1)
 		return f.remaining_amount if f.present?
 		return 0
 	end

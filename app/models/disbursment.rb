@@ -6,9 +6,10 @@ class Disbursment < ActiveRecord::Base
   validates_attachment_size :video, less_than: 100.megabytes
   validates_attachment_content_type :video, :content_type => ['video/quicktime', 'video/mp4', 'video/mpeg', 'video/mpeg4', 'video/x-flv', 'video/x-msvideo']
 
-  #after_save :set_recieve_amount
+  after_save :set_recieve_amount
 
   def set_recieve_amount
-  	# binding.pry
+  	self.case.recieved = self.case.disbursments.sum(:amount)
+  	self.case.save
   end
 end

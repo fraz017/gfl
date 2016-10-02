@@ -11,12 +11,11 @@ class Case < ActiveRecord::Base
 
 	validates_presence_of :name, :budget, :notification_date, :refered_by, :age, :gender, :contact_number, :address, :problem, :duration, :doctor, :hospital, :doctor_contact, :verification_method
 
-	#after_save :set_remaining_funds
+	after_save :set_remaining_funds
 
 	def set_remaining_funds
-		month = Date.today.strftime("%B %Y")
-		f = Fund.find_or_create_by(month: month)
-		f.remaining_amount = f.remaining_amount.to_f - self.recieved_amount.to_f
+		f = Fund.find_or_create_by(id: 1)
+		f.remaining_amount = f.total_amount - Case.all.sum(:recieved)
 		f.save
 	end
 end

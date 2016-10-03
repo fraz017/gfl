@@ -28,11 +28,13 @@
           <table class="table table-hover table-bordered">
             <tbody><tr>
               <th>Amount</th>
+              <th>Date</th>
               <th>Actions</th>
             </tr>
             <%@disbursments.each do |disbursement|%>
               <tr>
                 <td><%= disbursement.amount %></td>
+                <td><%= disbursement.created_at.strftime("%-d %b. %Y") %></td>
                 <td><%= link_to 'Show', case_disbursment_path(@case, disbursement), class: "btn btn-xs btn-primary" %>
                 <%= link_to 'Edit', edit_case_disbursment_path(@case, disbursement), class: "btn btn-xs btn-warning" %>
                 <%= link_to 'Destroy', case_disbursment_path(@case, disbursement), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>

@@ -8,3 +8,4 @@
 
 
 User.create(email: "admin@admin.com", password: "password", password_confirmation: "password", role: "admin")
+Fund.create(month: Date.today.strftime("%B %Y"), total_amount: 0, remaining_amount: 0)

@@ -2,7 +2,6 @@
 lock '3.6.1'
 
 # Change these
-
 set :repo_url,        'git@github.com:fraz017/gfl.git'
 set :application,     'gfl'
 set :user,            'ubuntu'

@@ -82,4 +82,3 @@ production:
   <<: *default
   database: gfl_production
   username: gfl
-  password: <%= ENV['GFL_DATABASE_PASSWORD'] %>

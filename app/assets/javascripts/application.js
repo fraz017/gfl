@@ -18,3 +18,4 @@
 //= require bootstrap-datepicker
 //= require ckeditor/init
 //= require video
+//= require jquery_nested_form

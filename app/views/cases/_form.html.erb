@@ -1,5 +1,5 @@
 <section class="content">
-  <%= form_for(@case) do |f| %>
+  <%= nested_form_for(@case, html: { multipart: true}) do |f| %>
     <div class="row">
       <% if @case.errors.any? %>
         <div id="error_explanation" class="alert alert-danger">
@@ -184,6 +184,40 @@
             <div class="form-group">
               <label>Verification Method</label>
               <%= f.text_area :verification_method, :class=> "form-control", :placeholder=>"Verification Method" %>
+            </div>
+
+            <%= f.fields_for :attachments do |photo| %>
+              <% if photo.object.new_record? %>
+                <div class="row">
+                  <div class="col-md-10"><%= photo.file_field :file %></div>
+                  <div class="col-md-2"><%= photo.link_to_remove "Remove", class: "btn btn-xs btn-danger" %></div>
+                </div>
+              <% elsif photo.object.file_content_type =~ %r(image) %>
+                <div class="row">
+                  <div class="col-md-10"><%= image_tag(photo.object.file.url(:thumb)) %></div>
+                  <div class="col-md-2"><%= photo.link_to_remove "Remove", class: "btn btn-xs btn-danger"%></div>
+                </div>
+              <% elsif photo.object.file_content_type =~ %r(video) %>
+                <div class="row">
+                  <div class="col-md-10"><%= videojs_rails source: photo.object.file.url, setup: "{}", controls: true, width:"300", height: "150" %></div>
+                  <div class="col-md-2"><%= photo.link_to_remove "Remove", class: "btn btn-xs btn-danger"%></div>
+                </div>
+              <% elsif photo.object.file_content_type =~ %r(audio) %>
+                <div class="row">
+                  <div class="col-md-10"><%= audio_tag photo.object.file.url, controls: true %></div>
+                  <div class="col-md-2"><%= photo.link_to_remove "Remove", class: "btn btn-xs btn-danger"%></div>
+                </div>
+              <% else %>
+                <div class="row">
+                  <div class="col-md-10"><%= link_to photo.object.file_file_name, photo.object.file.url %></div>
+                  <div class="col-md-2"><%= photo.link_to_remove "Remove", class: "btn btn-xs btn-danger"%></div>
+                </div>
+              <% end %>
+              <br>  
+            <% end %>
+            <div class="form-group">
+              <label style="float: left; width: 100%;">Attach Files or Videos</label>
+              <%= f.link_to_add "Add Files/Videos", :attachments, class: "btn btn-primary" %>
             </div>
 
             <% if current_user.admin? %>

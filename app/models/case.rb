@@ -1,6 +1,7 @@
 class Case < ActiveRecord::Base
 	
   has_many :requests
+  has_many :attachments
 	as_enum :state, pending: 0, rejected: 1, open: 2, closed: 3
 	belongs_to :user
 	has_many :medium
@@ -13,6 +14,8 @@ class Case < ActiveRecord::Base
 
 	validates_presence_of :name, :budget, :notification_date, :refered_by, :age, :gender, :contact_number, :address, :problem, :duration, :doctor, :hospital, :doctor_contact, :verification_method
 
+	accepts_nested_attributes_for :attachments, allow_destroy: true
+	
 	after_save :set_remaining_funds
 
 	def set_remaining_funds

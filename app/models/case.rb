@@ -3,20 +3,29 @@ class Case < ActiveRecord::Base
   has_many :requests
   has_many :attachments
 	as_enum :state, pending: 0, rejected: 1, open: 2, closed: 3
-	belongs_to :user
+	belongs_to :user, :class_name => 'User'
+	belongs_to :creator, :class_name => 'User'
 	has_many :medium
 	has_many :disbursments
 
-	scope :pending, -> { where(state_cd: 0) }
-	scope :rejected, -> { where(state_cd: 1) }
-	scope :open, -> { where(state_cd: 2) }
-	scope :closed, -> { where(state_cd: 3) }
+	scope :pending, -> { where(state_cd: 0, deleted: false) }
+	scope :rejected, -> { where(state_cd: 1, deleted: false) }
+	scope :open, -> { where(state_cd: 2, deleted: false) }
+	scope :closed, -> { where(state_cd: 3, deleted: false) }
 
 	validates_presence_of :name, :budget, :notification_date, :refered_by, :age, :gender, :contact_number, :address, :problem, :duration, :doctor, :hospital, :doctor_contact
 
 	accepts_nested_attributes_for :attachments, allow_destroy: true
 	
 	after_save :set_remaining_funds
+
+	before_save :set_creator
+
+	def set_creator
+		if self.user_id.present?
+			self.creator_id = self.user_id
+		end
+	end
 
 	def set_remaining_funds
 		f = Fund.find_or_create_by(id: 1)

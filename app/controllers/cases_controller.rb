@@ -11,7 +11,7 @@ class CasesController < ApplicationController
       @closed_cases = Case.closed
       @rejected_cases = Case.rejected
     else  
-      @cases = current_user.cases
+      @cases = current_user.cases.where(deleted: false)
     end  
   end
 
@@ -63,7 +63,7 @@ class CasesController < ApplicationController
   # DELETE /cases/1
   # DELETE /cases/1.json
   def destroy
-    @case.destroy
+    @case.update_columns(deleted: true)
     respond_to do |format|
       format.html { redirect_to cases_url, notice: 'Case was successfully destroyed.' }
       format.json { head :no_content }

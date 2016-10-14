@@ -12,7 +12,7 @@ class Case < ActiveRecord::Base
 	scope :open, -> { where(state_cd: 2) }
 	scope :closed, -> { where(state_cd: 3) }
 
-	validates_presence_of :name, :budget, :notification_date, :refered_by, :age, :gender, :contact_number, :address, :problem, :duration, :doctor, :hospital, :doctor_contact, :verification_method
+	validates_presence_of :name, :budget, :notification_date, :refered_by, :age, :gender, :contact_number, :address, :problem, :duration, :doctor, :hospital, :doctor_contact
 
 	accepts_nested_attributes_for :attachments, allow_destroy: true
 	

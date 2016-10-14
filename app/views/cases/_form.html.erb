@@ -95,8 +95,18 @@
             </div>
 
             <div class="form-group">
-              <label>Address</label>
-              <%= f.text_area :address, :class=> "form-control", :placeholder=>"Address" %>
+              <label>Address Line 1</label>
+              <%= f.text_field :address, :class=> "form-control", :placeholder=>"Address Line 1" %>
+            </div>
+
+            <div class="form-group">
+              <label>Address Line 2</label>
+              <%= f.text_field :address2, :class=> "form-control", :placeholder=>"Address Line 2" %>
+            </div>
+
+            <div class="form-group">
+              <label>City</label>
+              <%= f.text_field :city, :class=> "form-control", :placeholder=>"City" %>
             </div>
 
             <div class="form-group">

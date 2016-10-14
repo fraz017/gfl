@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :disbursments
     resources :requests
   end
+  
   get 'welcome/index'
 
   devise_for :users, :skip => [:sessions]
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'cases#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

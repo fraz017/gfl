@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     if user && user.role == :admin
       can :manage, :all
-    elsif user && user.role == :manager
+    elsif user && user.role == :manager  
       can :manage, Case, :user_id => user.id
       can :manage, Disbursment, :case => {:user_id => user.id}
       can :manage, Request, :case => {:user_id => user.id}

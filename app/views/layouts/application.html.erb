@@ -55,19 +55,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">MAIN NAVIGATION</li>
-          <li class="active">
-            <a href="/">
-              <i class="fa fa-line-chart"></i> <span>Reports</span>
-            </a>
-          </li>
-          <% if current_user.admin? %>
-            <li id="manager">
-              <a href="/users">
-                <i class="fa fa-users"></i> <span>Case Managers</span>
-              </a>
-            </li>
-          <% end %>
-          <li id="cases">
+          <li id="cases" class="active">
             <a href="/cases">
               <i class="fa fa-heartbeat"></i> <span>Cases</span>
             </a>
@@ -79,6 +67,18 @@
               </a>
             </li>
           <% end %>
+          <% if current_user.admin? %>
+            <li id="manager">
+              <a href="/users">
+                <i class="fa fa-users"></i> <span>Case Managers</span>
+              </a>
+            </li>
+          <% end %>
+          <li>
+            <a href="/">
+              <i class="fa fa-line-chart"></i> <span>Reports</span>
+            </a>
+          </li>
           <!-- <li>
             <a href="#">
               <i class="fa fa-bank"></i> <span>Donors</span>

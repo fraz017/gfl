@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     resources :disbursments
     resources :requests
   end
-  
-  get 'welcome/index'
+
+  get '/reports' => 'welcome#index'
 
   devise_for :users, :skip => [:sessions]
   as :user do

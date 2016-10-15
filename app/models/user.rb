@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   as_enum :role, admin: 0, manager: 1
 
+  validates_presence_of :first_name, :last_name, :email
+
   has_many :cases
   def self.is_admin?
   	return true if role == :admin

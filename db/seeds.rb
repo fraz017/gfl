@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-User.create(email: "admin@admin.com", password: "password", password_confirmation: "password", role: "admin")
+User.create(email: "admin@admin.com", password: "password", password_confirmation: "password", role: "admin", first_name: "Admin", last_name: "Admin")
 Fund.create(month: Date.today.strftime("%B %Y"), total_amount: 0, remaining_amount: 0)

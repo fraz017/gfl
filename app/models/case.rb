@@ -21,7 +21,7 @@ class Case < ActiveRecord::Base
 	
 	after_save :set_remaining_funds
 
-	before_save :set_creator, :set_problem
+	before_save :set_creator, :set_problem, :set_remaining
 
 	def set_problem
 		p = Problem.find_or_create_by(name: self.problem)
@@ -32,6 +32,10 @@ class Case < ActiveRecord::Base
 		if self.user_id.present?
 			self.creator_id = self.user_id
 		end
+	end
+
+	def set_remaining
+		self.remaining = self.budget.to_f - self.recieved.to_f
 	end
 
 	def set_remaining_funds

@@ -10,6 +10,7 @@ class Disbursment < ActiveRecord::Base
 
   def set_recieve_amount
   	self.case.recieved = self.case.disbursments.sum(:amount)
+    self.case.remaining = self.case.budget.to_f - self.case.recieved.to_f
   	self.case.save
   end
 end

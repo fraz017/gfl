@@ -6,10 +6,11 @@ class CasesController < ApplicationController
   # GET /cases.json
   def index
     if current_user.admin?
-      @cases = Case.pending
-      @open_cases = Case.open
-      @closed_cases = Case.closed
-      @rejected_cases = Case.rejected
+      @cases = Case.pending.rank(:row_order)
+      @open_cases = Case.open.rank(:row_order)
+      @closed_cases = Case.closed.rank(:row_order)
+      @rejected_cases = Case.rejected.rank(:row_order)
+      @archived_cases = Case.where(deleted: false).rank(:row_order)
     else  
       @cases = current_user.cases.where(deleted: false)
     end  
@@ -92,6 +93,14 @@ class CasesController < ApplicationController
   def details
   end
 
+  def update_row_order
+    @case = Case.find(case_params[:case_id])
+    @case.row_order_position = case_params[:row_order_position]
+    @case.save(:validate => false)
+
+    render nothing: true # this is a POST action, updates sent via AJAX, no view rendered
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_case
@@ -100,6 +109,6 @@ class CasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_params
-      params.require(:case).permit(:budget, :name, :state_cd, :user_id, :state, :recieved, :notification_date, :refered_by, :age, :gender, :contact_number, :contact_relation, :contact_name, :address, :address2, :city, :cnic, :problem, :duration, :doctor, :hospital, :doctor_contact, :verification_doc, :benificiary_name,  :benificiary_bank, :bank_address, :account_number, :iban, :swift_code, :verification_method, attachments_attributes: [:id, :file, :_destroy])
+      params.require(:case).permit(:budget, :name, :state_cd, :user_id, :state, :recieved, :notification_date, :refered_by, :age, :gender, :contact_number, :contact_relation, :contact_name, :address, :address2, :city, :cnic, :problem, :duration, :doctor, :hospital, :doctor_contact, :verification_doc, :benificiary_name,  :benificiary_bank, :bank_address, :account_number, :iban, :swift_code, :verification_method, :case_id, :row_order_position, attachments_attributes: [:id, :file, :_destroy])
     end
 end

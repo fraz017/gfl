@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/sortable
+//= require jquery-ui/effect-highlight
 //= require bootstrap.min
 //= require jquery.slimscroll.min
 //= require fastclick.min

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       get "close"
       get "details"
     end
+    post :update_row_order, on: :collection
+    
     resources :disbursments
     resources :requests
   end

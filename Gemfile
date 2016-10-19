@@ -43,7 +43,8 @@ gem 'nested_scaffold'
 
 gem 'puma'
 
-gem "nested_form"
+gem 'ranked-model'
+gem 'jquery-ui-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

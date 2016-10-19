@@ -1,5 +1,7 @@
 class Case < ActiveRecord::Base
-	
+	include RankedModel
+  ranks :row_order
+  	
   has_many :requests
   has_many :attachments
 	as_enum :state, pending: 0, rejected: 1, open: 2, closed: 3

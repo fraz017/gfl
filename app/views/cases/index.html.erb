@@ -82,19 +82,22 @@
           <br>
 
           <div class="box-body table-responsive no-padding">
-            <table class="table table-hover table-bordered">
-              <tbody><tr>
-                <th>Treatment Cost</th>
-                <th>Patient Name</th>
-                <th>Amount Recieved</th>
-                <th>Assigned Manager</th>
-                <th>State</th>
-                <th>Disbursments</th>
-                <th>Requests</th>
-                <th>Actions</th>
-              </tr>
-              <%@open_cases.each do |c|%>
+            <table class="table table-hover table-bordered" id="sortable">
+              <thead>
                 <tr>
+                  <th>Treatment Cost</th>
+                  <th>Patient Name</th>
+                  <th>Amount Recieved</th>
+                  <th>Assigned Manager</th>
+                  <th>State</th>
+                  <th>Disbursments</th>
+                  <th>Requests</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+              <%@open_cases.each do |c|%>
+                <tr data-item-id=<%= "#{c.id}" %> class="item">
                   <td><%= c.budget %></td>
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
@@ -292,4 +295,42 @@
 <script>
   $("ul.sidebar-menu li").removeClass("active")
   $("ul.sidebar-menu li#cases").addClass("active")
+  var cells, desired_width, table_width;
+
+  if ($('#sortable').length > 0) {
+    table_width = $('#sortable').width();
+    cells = $('.table').find('tr')[0].cells.length;
+    desired_width = table_width / cells + 'px';
+    $('.table td').css('width', desired_width);
+    $('#sortable').sortable({
+      axis: 'y',
+      items: '.item',
+      cursor: 'move',
+      sort: function(e, ui) {
+        return ui.item.addClass('active-item-shadow');
+      },
+      stop: function(e, ui) {
+        ui.item.removeClass('active-item-shadow');
+        return ui.item.children('td').effect('highlight', {}, 1000);
+      },
+      update: function(e, ui) {
+        var item_id, position;
+        item_id = ui.item.data('item-id');
+        console.log(item_id);
+        position = ui.item.index();
+        return $.ajax({
+          type: 'POST',
+          url: '/cases/update_row_order',
+          dataType: 'json',
+          data: {
+            "case": {
+              case_id: item_id,
+              row_order_position: position
+            }
+          }
+        });
+      }
+    });
+  }
+  $("td").css("width","auto");
 </script>  

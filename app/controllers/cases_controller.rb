@@ -10,7 +10,7 @@ class CasesController < ApplicationController
       @open_cases = Case.open.rank(:row_order)
       @closed_cases = Case.closed.rank(:row_order)
       @rejected_cases = Case.rejected.rank(:row_order)
-      @archived_cases = Case.where(deleted: false).rank(:row_order)
+      @archived_cases = Case.where(deleted: true).rank(:row_order)
     else  
       @cases = current_user.cases.where(deleted: false)
     end  
@@ -65,6 +65,14 @@ class CasesController < ApplicationController
   # DELETE /cases/1.json
   def destroy
     @case.update_columns(deleted: true)
+    respond_to do |format|
+      format.html { redirect_to cases_url, notice: 'Case was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def unarchive
+    @case.update_columns(deleted: false)
     respond_to do |format|
       format.html { redirect_to cases_url, notice: 'Case was successfully destroyed.' }
       format.json { head :no_content }

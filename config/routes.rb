@@ -9,9 +9,10 @@ Rails.application.routes.draw do
       get "manager"
       get "close"
       get "details"
+      delete "unarchive"
     end
     post :update_row_order, on: :collection
-    
+
     resources :disbursments
     resources :requests
   end

@@ -29,7 +29,7 @@
             </tr>
             <%@users.each do |user|%>
               <tr>
-                <td><%= user.email %></td>
+                <td><%=mail_to user.email %></td>
                 <td><%= user.first_name %></td>
                 <td><%= user.last_name %></td>
                 <td><%= user.mobile_number %></td>

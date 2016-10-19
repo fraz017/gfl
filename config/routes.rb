@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       get "details"
       delete "unarchive"
     end
+    get :autocomplete_problem_name, :on => :collection
+    get :autocomplete_treatment_name, :on => :collection
     post :update_row_order, on: :collection
 
     resources :disbursments

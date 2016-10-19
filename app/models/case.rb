@@ -1,7 +1,7 @@
 class Case < ActiveRecord::Base
 	include RankedModel
   ranks :row_order
-  	
+
   has_many :requests
   has_many :attachments
 	as_enum :state, pending: 0, rejected: 1, open: 2, closed: 3
@@ -15,13 +15,18 @@ class Case < ActiveRecord::Base
 	scope :open, -> { where(state_cd: 2, deleted: false) }
 	scope :closed, -> { where(state_cd: 3, deleted: false) }
 
-	validates_presence_of :name, :budget, :notification_date, :refered_by, :age, :gender, :contact_number, :address, :problem, :duration, :doctor, :hospital, :doctor_contact
+	validates_presence_of :name, :budget, :notification_date, :refered_by, :age, :gender, :contact_number, :address, :problem, :treatment, :duration, :doctor, :hospital, :doctor_contact
 
 	accepts_nested_attributes_for :attachments, allow_destroy: true
 	
 	after_save :set_remaining_funds
 
-	before_save :set_creator
+	before_save :set_creator, :set_problem
+
+	def set_problem
+		p = Problem.find_or_create_by(name: self.problem)
+		t = Treatment.find_or_create_by(name: self.treatment, problem_id: p.id)
+	end
 
 	def set_creator
 		if self.user_id.present?

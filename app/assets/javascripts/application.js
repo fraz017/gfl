@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/autocomplete
 //= require jquery-ui/sortable
 //= require jquery-ui/effect-highlight
 //= require bootstrap.min
@@ -21,3 +22,4 @@
 //= require ckeditor/init
 //= require video
 //= require jquery_nested_form
+//= require autocomplete-rails

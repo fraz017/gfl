@@ -43,7 +43,7 @@
 
             <div class="form-group">
               <label>Nature of Problem</label>
-              <%= f.text_field :problem, :class=> "form-control", :placeholder=>"Nature of Problem" %>
+              <%= f.text_field :problem, :class=> "form-control", :placeholder=>"Nature of Problem", "data-autocomplete": "/cases/autocomplete_problem_name", "min-length": '0' %>
             </div>
 
             <div class="form-group">
@@ -56,6 +56,11 @@
               <label>Male</label>&emsp; 
               <%= f.radio_button :gender, 'Female' %>
               <label>Female</label>
+            </div>
+
+            <div class="form-group">
+              <label>Treatment</label>
+              <%= f.text_field :treatment, :class=> "form-control", :placeholder=>"Treatment", "data-autocomplete": "/cases/autocomplete_treatment_name", "min-length": '0' %>
             </div>
 
             <div class="form-group">

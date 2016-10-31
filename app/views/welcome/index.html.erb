@@ -113,7 +113,99 @@
 
 </section><!-- /.content -->
 
+<section class="report-graph">
+  <div class="container-fluid">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Case Details</h3>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-name="weekly" class="change-cases btn btn-primary">Last Week</a>
+          </div>
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-id="1" class="change-cases btn btn-primary">Last 1 month</a>
+          </div>
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-id="3" class="change-cases btn btn-primary">Last 3 months</a>
+          </div>
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-id="6" class="change-cases btn btn-primary">Last 6 months</a>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12 cases-chart">
+            <div id="cases-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <%= render :partial => "cases" %>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Donation Details</h3>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-name="weekly" class="change-donations btn btn-primary">Last Week</a>
+          </div>
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-id="1" class="change-donations btn btn-primary">Last 1 month</a>
+          </div>
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-id="3" class="change-donations btn btn-primary">Last 3 months</a>
+          </div>
+          <div class="col-md-2">
+            <a href="javascript:void(0)" data-id="6" class="change-donations btn btn-primary">Last 6 months</a>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12 sales-chart">
+            <div id="donations-container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <%= render :partial => "donations" %>
+          </div>
+        </div>
+      </div>  
+    </div>  
+  </div>
+</section>
+
+<style type="text/css">
+  .content{
+    min-height: auto;
+  }
+</style>
+
 <script>
-  $("ul.sidebar-menu li").removeClass("active")
-  $("ul.sidebar-menu li#reports").addClass("active")
+  $("ul.sidebar-menu li").removeClass("active");
+  $("ul.sidebar-menu li#reports").addClass("active");
+  $(".change-cases").click(function(){
+    $.ajax({
+      type: "POST",
+      url: "/caseReports",
+      data: {
+        month: $(this).attr("data-id")
+      },
+      dataType: "script",
+      success: function () {
+      }
+    });
+  }); 
+
+  $(".change-donations").click(function(){
+    $.ajax({
+      type: "POST",
+      url: "/donationReports",
+      data: {
+        month: $(this).attr("data-id")
+      },
+      dataType: "script",
+      success: function () {
+      }
+    });
+  }); 
 </script>  

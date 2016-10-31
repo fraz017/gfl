@@ -1,0 +1,37 @@
+<script type="text/javascript">
+$(function () {
+    $('#cases-container').highcharts({
+        title: {
+            text: 'Case Reports <%= @title.first %> To <%= @title.last %> ',
+            x: -20 //center
+        },
+        subtitle: {
+            // text: 'Source: WorldClimate.com',
+            x: -20
+        },
+        xAxis: {
+            categories: <%= raw @points.to_json %>
+        },
+        yAxis: {
+            title: {
+                text: 'No. of Cases'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            // valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom',
+            borderWidth: 0
+        },
+        series: <%= raw @series.to_json %>
+    });
+}); 
+</script>

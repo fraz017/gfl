@@ -1,0 +1,32 @@
+<script type="text/javascript">
+$(function () {
+    $('#donations-container').highcharts({
+        title: {
+            text: 'Donations <%= @dtitle.first %> To <%= @dtitle.last %> ',
+            x: -20 //center
+        },
+        chart: {
+            type: 'column'
+        },
+        xAxis: {
+            categories: <%= raw @dpoints.to_json %>
+        },
+        yAxis: {
+            title: {
+                text: 'Total Amount (PKR)'
+            },
+            min: 0            
+        },
+        tooltip: {
+            // valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'horizontal',
+            align: 'center',
+            verticalAlign: 'bottom',
+            borderWidth: 0
+        },
+        series: <%= raw @dseries.to_json %>
+    });
+}); 
+</script>

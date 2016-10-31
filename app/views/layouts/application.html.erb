@@ -66,19 +66,17 @@
                 <i class="fa fa-money"></i> <span>Donations</span>
               </a>
             </li>
-          <% end %>
-          <% if current_user.admin? %>
             <li id="manager">
               <a href="/users">
                 <i class="fa fa-users"></i> <span>Case Managers</span>
               </a>
             </li>
+            <li id="reports">
+              <a href="/reports">
+                <i class="fa fa-line-chart"></i> <span>Reports</span>
+              </a>
+            </li>
           <% end %>
-          <li id="reports">
-            <a href="/reports">
-              <i class="fa fa-line-chart"></i> <span>Reports</span>
-            </a>
-          </li>
           <!-- <li>
             <a href="#">
               <i class="fa fa-bank"></i> <span>Donors</span>

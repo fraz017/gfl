@@ -1,0 +1,1 @@
+$("#cases-container").html('<%= escape_javascript(render(:partial => "cases", :locals => {:@reports => @reports, :@points => @points})) %>');

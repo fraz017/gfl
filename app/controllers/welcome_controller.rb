@@ -6,11 +6,11 @@ class WelcomeController < ApplicationController
   	@reports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
     @points = Array.new
     @points = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?
-		@title = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
+			
 
 		states = {pending: 0, rejected: 1, open: 2, closed: 3}
 		@series = Array.new
-		states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(7, 0); @series.push(temp) }
+		states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(@reports.keys.present? ? @reports.keys.count : 1, 0); @series.push(temp) }
 		@reports.each_with_index do |(k, v), index|
 			@points.push(k.strftime("%A"))			
 			v.group_by(&:state_cd).each do |k, v|
@@ -40,14 +40,14 @@ class WelcomeController < ApplicationController
   def cases
   	states = {pending: 0, rejected: 1, open: 2, closed: 3}
 		@series = Array.new
+		@points = Array.new
   	if !params[:month].present?
 			@reports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
 	    @points = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?	  	
 	  	@title = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
-	  	states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(7, 0); @series.push(temp) }
+	  	states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(@reports.keys.present? ? @reports.keys.count : 1, 0); @series.push(temp) }
 	  else
 	  	@reports = Case.where('Extract(month from created_at) > ? and Extract(month from created_at) <= ? and deleted=false',(Date.today-params[:month].to_i.month).strftime("%m"),Date.today.strftime("%m")).group_by{ |u| u.created_at.beginning_of_month }
-	  	@points = Array.new
 	  	states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(@reports.keys.present? ? @reports.keys.count : 1, 0); @series.push(temp) }
 	  	@title = @reports.map{|s| s[0].strftime("%B")} if @reports.present?
 	  end	
@@ -63,9 +63,9 @@ class WelcomeController < ApplicationController
   end
 
   def donations
+  	@dpoints = Array.new
   	if params[:month].present?
 	  	@dreports = Donation.where('Extract(month from created_at) > ? and Extract(month from created_at) <= ?',(Date.today-params[:month].to_i.month).strftime("%m"),Date.today.strftime("%m")).group_by{ |u| u.created_at.beginning_of_month }
-	  	@dpoints = Array.new
 	  	@dpoints = [(Date.today- params[:month].to_i.month).strftime("%B"), Date.today.strftime("%B")] if @dreports.blank?
 	  	@dseries = Array.new
 	  	data = Hash.new
@@ -80,7 +80,7 @@ class WelcomeController < ApplicationController
 			@dseries.push(data)
 		else
 			@dreports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
-	    @dpoints = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?
+	    @dpoints = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @dreports.blank?
 			@dtitle = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
 			@dseries = Array.new
 			data = Array.new

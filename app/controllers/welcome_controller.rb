@@ -20,7 +20,7 @@ class WelcomeController < ApplicationController
 
 		# Donations Part
 		@dreports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at } 
-    @dpoints = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?
+    @dpoints = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")}
 		@dtitle = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
 
 		@dseries = Array.new

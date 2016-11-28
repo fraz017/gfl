@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
 
 		states = {pending: 0, rejected: 1, open: 2, closed: 3}
 		@series = Array.new
-		states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(7, 0); @series.push(temp) }
+		states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(@reports.keys.present? ? @reports.keys.count : 1, 0); @series.push(temp) }
 		@reports.each_with_index do |(k, v), index|
 			@points.push(k.strftime("%A"))			
 			v.group_by(&:state_cd).each do |k, v|
@@ -44,7 +44,7 @@ class WelcomeController < ApplicationController
 			@reports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
 	    @points = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?	  	
 	  	@title = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
-	  	states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(7, 0); @series.push(temp) }
+	  	states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(@reports.keys.present? ? @reports.keys.count : 1, 0); @series.push(temp) }
 	  else
 	  	@reports = Case.where('Extract(month from created_at) > ? and Extract(month from created_at) <= ? and deleted=false',(Date.today-params[:month].to_i.month).strftime("%m"),Date.today.strftime("%m")).group_by{ |u| u.created_at.beginning_of_month }
 	  	@points = Array.new

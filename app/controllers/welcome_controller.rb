@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
 	layout "reports"
   def index
   	# Cases Part
-  	@reports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at } 
+  	@reports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
     @points = Array.new
     @points = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?
 		@title = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
 		end
 
 		# Donations Part
-		@dreports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at } 
+		@dreports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
     @dpoints = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")}
 		@dtitle = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
 
@@ -41,7 +41,7 @@ class WelcomeController < ApplicationController
   	states = {pending: 0, rejected: 1, open: 2, closed: 3}
 		@series = Array.new
   	if !params[:month].present?
-			@reports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at } 
+			@reports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
 	    @points = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?	  	
 	  	@title = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
 	  	states.each{|k, v| temp=Hash.new; temp["name"]=k.to_s.titleize; temp["data"]=Array.new(7, 0); @series.push(temp) }
@@ -79,7 +79,7 @@ class WelcomeController < ApplicationController
 			end
 			@dseries.push(data)
 		else
-			@dreports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at } 
+			@dreports = Case.where('Date(created_at) > ? and Date(created_at) <= ?',(Date.today-7.days).strftime("%F"), Date.today.strftime("%F")).group_by{ |u| u.created_at.to_date } 
 	    @dpoints = (Date.today-6.days..Date.today).map{|d| d.strftime("%A")} if @reports.blank?
 			@dtitle = (Date.today-6.days..Date.today).map{|d| d.strftime("%d-%m-%Y")}
 			@dseries = Array.new

@@ -10,8 +10,7 @@ class ApplicationController < ActionController::Base
     	cases_path
     elsif resource.role == :admin
     	reports_path
-    end
-  elsif resource.role == :doctor
+    else
     	cases_path
     end
   end

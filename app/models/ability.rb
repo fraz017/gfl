@@ -8,6 +8,8 @@ class Ability
       can :manage, Case, :user_id => user.id
       can :manage, Disbursment, :case => {:user_id => user.id}
       can :manage, Request, :case => {:user_id => user.id}
+    elsif user && user.role == :doctor
+      can :read, Case, :user_id => user.id  
     end
     # Define abilities for the passed in user here. For example:
     #

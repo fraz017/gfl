@@ -30,6 +30,9 @@ Rails.application.routes.draw do
 
 
   resources :users, controller: "users"
+  resources :doctors
+  resources :admins
+
   get "/profile" => "users#profile"
 
   post "/caseReports" => "welcome#cases"

@@ -48,8 +48,8 @@
                       %>
                     <% end %>  
                   </td>
-                  <td><%= link_to 'Accept', accept_case_path(c), class: "btn btn-xs btn-success", :remote => true%>
-                  <%= link_to 'Reject', reject_case_path(c), class: "btn btn-xs btn-danger", :remote => true %></td>
+                  <td><%= link_to 'Accept', accept_case_path(c), data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-success", :remote => true%>
+                  <%= link_to 'Reject', reject_case_path(c), data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger", :remote => true %></td>
                   <td>
                     <%if c.requests.count > 0%>
                       <%= link_to c.requests.count, case_requests_path(c), class: "btn btn-xs btn-primary" %>
@@ -114,7 +114,7 @@
                       %>
                     <% end %> 
                   </td>
-                  <td><%= link_to 'Complete', close_case_path(c), class: "btn btn-xs btn-primary", :remote => true %></td>
+                  <td><%= link_to 'Complete', close_case_path(c), data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-primary", :remote => true %></td>
                   <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
                   <td>
                     <%if c.requests.count > 0%>

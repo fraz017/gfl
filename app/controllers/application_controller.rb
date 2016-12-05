@@ -5,4 +5,14 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path
   end
+  def after_sign_in_path_for(resource)
+    if resource.role == :manager
+    	cases_path
+    elsif resource.role == :admin
+    	reports_path
+    end
+  elsif resource.role == :doctor
+    	cases_path
+    end
+  end
 end

@@ -1,7 +1,7 @@
 module WelcomeHelper
 	def funds
 		f = Fund.find(1)
-		return f.remaining_amount if f.present?
+		return f.remaining_amount if f.present? && f.remaining_amount > 0
 		return 0
 	end
 

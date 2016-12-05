@@ -9,7 +9,7 @@ class Donation < ActiveRecord::Base
 
 	def set_funds
 		f = Fund.find_or_create_by(id: 1)
-		f.total_amount = self.amount.to_f
+		f.total_amount = Donation.all.sum(:amount)
 		f.remaining_amount = f.remaining_amount.to_f + self.amount.to_f
 		f.save
 	end

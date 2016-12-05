@@ -69,11 +69,19 @@
                 <i class="fa fa-money"></i> <span>Donations</span>
               </a>
             </li>
-          <% end %>
-          <% if current_user.admin? %>
+            <li id="admins">
+              <a href="/admins">
+                <i class="fa fa-users"></i> <span>Admins</span>
+              </a>
+            </li>
             <li id="manager">
               <a href="/users">
                 <i class="fa fa-users"></i> <span>Case Managers</span>
+              </a>
+            </li>
+            <li id="doctors">
+              <a href="/doctors">
+                <i class="fa fa-users"></i> <span>Doctors</span>
               </a>
             </li>
           <% end %>

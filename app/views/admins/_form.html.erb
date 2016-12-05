@@ -1,7 +1,8 @@
 <%= form_for(@admin) do |f| %>
   <% if @admin.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@admin.errors.count, "error") %> prohibited this admin from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <h2>Error!</h2>
 
       <ul>
       <% @admin.errors.full_messages.each do |message| %>
@@ -10,8 +11,30 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="box-body">
+    <div class="form-group">
+      <label>First Name</label>
+      <%= f.text_field :first_name, :class=> "form-control", :placeholder=>"First Name" %>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <%= f.text_field :last_name, :class=> "form-control", :placeholder=>"Last Name" %>
+    </div>
+    <div class="form-group">
+      <label>Email address</label>
+      <%= f.email_field :email, :class=> "form-control", :placeholder=>"Email" %>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <%= f.password_field :password, :class=> "form-control", :placeholder=>"Password" %>
+    </div>
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <%= f.text_field :mobile_number, :class=> "form-control", :placeholder=>"Mobile Number" %>
+    </div>
+  </div><!-- /.box-body -->
+  <%= f.hidden_field :role_cd, value: 0 %>
+  <div class="box-footer">
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
   </div>
 <% end %>

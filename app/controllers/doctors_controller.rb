@@ -24,11 +24,11 @@ class DoctorsController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @doctor = Doctor.new(user_params)
+    @doctor = Doctor.new(doctor_params)
 
     respond_to do |format|
       if @doctor.save
-        format.html { redirect_to @doctor, notice: 'User was successfully created.' }
+        format.html { redirect_to @doctor, notice: 'Doctor was successfully created.' }
         format.json { render :show, status: :created, location: @doctor }
       else
         format.html { render :new }
@@ -41,8 +41,8 @@ class DoctorsController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @doctor.update(user_params)
-        format.html { redirect_to @doctor, notice: 'User was successfully updated.' }
+      if @doctor.update(doctor_params)
+        format.html { redirect_to @doctor, notice: 'Doctor was successfully updated.' }
         format.json { render :show, status: :ok, location: @doctor }
       else
         format.html { render :edit }
@@ -56,19 +56,15 @@ class DoctorsController < ApplicationController
   def destroy
     @doctor.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: 'Doctor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @doctor = User.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
+    def doctor_params
       params[:doctor].delete(:password) if params[:doctor][:password].blank?
       params[:doctor].delete(:password_confirmation) if params[:doctor][:password].blank? and params[:doctor][:password_confirmation].blank?
 

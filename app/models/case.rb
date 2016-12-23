@@ -23,6 +23,8 @@ class Case < ActiveRecord::Base
 
 	before_save :set_creator, :set_problem, :set_remaining
 
+	has_many :comments
+
 	def set_problem
 		p = Problem.find_or_create_by(name: self.problem)
 		t = Treatment.find_or_create_by(name: self.treatment, problem_id: p.id)
@@ -31,6 +33,7 @@ class Case < ActiveRecord::Base
 	def set_creator
 		if self.user_id.present?
 			self.creator_id = self.user_id
+			self.user_id = nil
 		end
 	end
 

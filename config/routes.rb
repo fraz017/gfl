@@ -32,6 +32,10 @@ Rails.application.routes.draw do
   resources :users, controller: "users"
   resources :doctors
 
+  post "/comments" => "comments#create"
+
+  delete "/comments/:id" => "comments#destroy"
+
   get "/profile" => "users#profile"
 
   post "/caseReports" => "welcome#cases"

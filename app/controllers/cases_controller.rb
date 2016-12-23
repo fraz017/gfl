@@ -102,6 +102,7 @@ class CasesController < ApplicationController
   end
 
   def details
+    @comment = Comment.new
   end
 
   def update_row_order

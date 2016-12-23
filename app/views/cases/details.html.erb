@@ -185,6 +185,65 @@
         </div><!-- /.box-body -->
       </div>
     </div>
+  </div>  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Comments</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <% @case.comments.each do |c| %>
+            <strong><i class="fa fa-comment margin-r-5"></i> Comments </strong>
+            <p class="text-muted"><%= c.message %></p>
+            <p>by <b>(<%= c.user.role.to_s.titleize%>) <%= c.user.try(:first_name) %> <%= c.user.try(:last_name) %></b> 
+              <%if c.user.id == current_user.id%>
+                <%= link_to 'Destroy', "/comments/#{c.id}", method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: "btn btn-xs btn-danger" %></td>
+              <%end%>
+            </p>
+            <hr>
+          <%end%>
+          <%if @case.comments.count <=0 %>
+            No comments found
+          <%end%>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Add Comments</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <%= form_for(@comment, remote: true) do |f| %>
+            <% if @comment.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <h2>Error!</h2>
+
+                <ul>
+                <% @comment.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="box-body">
+              <div class="form-group">
+                <label>Message</label>
+                <%= f.text_area :message, :class=> "form-control", :placeholder=>"Enter Comment", required: true %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :case_id, value: @case.id %>
+              </div>
+
+            <div class="box-footer">
+              <%= f.submit "Submit", :class => "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
   </div>
 </div>
 <script>

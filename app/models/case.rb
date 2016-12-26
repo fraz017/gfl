@@ -5,7 +5,8 @@ class Case < ActiveRecord::Base
   has_many :requests
   has_many :attachments
 	as_enum :state, pending: 0, rejected: 1, open: 2, closed: 3
-	belongs_to :user, :class_name => 'User'
+	has_and_belongs_to_many :users, :class_name => 'User'
+	# belongs_to :user, :class_name => 'User'
 	belongs_to :creator, :class_name => 'User'
 	has_many :medium
 	has_many :disbursments

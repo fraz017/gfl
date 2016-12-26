@@ -147,6 +147,6 @@ class CasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_params
-      params.require(:case).permit(:budget, :name, :state_cd, :user_id, :state, :recieved, :notification_date, :refered_by, :age, :gender, :contact_number, :contact_relation, :contact_name, :address, :address2, :city, :cnic, :problem, :treatment, :duration, :doctor, :hospital, :doctor_contact, :verification_doc, :benificiary_name,  :benificiary_bank, :bank_address, :account_number, :iban, :swift_code, :verification_method, :case_id, :row_order_position, attachments_attributes: [:id, :file, :_destroy])
+      params.require(:case).permit(:budget, :name, :state_cd, :state, :recieved, :notification_date, :refered_by, :age, :gender, :contact_number, :contact_relation, :contact_name, :address, :address2, :city, :cnic, :problem, :treatment, :duration, :doctor, :hospital, :doctor_contact, :verification_doc, :benificiary_name,  :benificiary_bank, :bank_address, :account_number, :iban, :swift_code, :verification_method, :case_id, :row_order_position, attachments_attributes: [:id, :file, :_destroy], user_ids: [])
     end
 end

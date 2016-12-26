@@ -2,14 +2,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :details, :show,  :to => :read
     if user && user.role == :admin
       can :manage, :all
     elsif user && user.role == :manager  
-      can :manage, Case, :user_id => user.id
-      can :manage, Disbursment, :case => {:user_id => user.id}
-      can :manage, Request, :case => {:user_id => user.id}
+      can :manage, Case, id: user.cases.pluck(:id)
+      can :manage, Disbursment, :case => {:id => user.cases.pluck(:id)}
+      can :manage, Request, :case => {:id => user.cases.pluck(:id)}
     elsif user && user.role == :doctor
-      can :read, Case, :user_id => user.id  
+      can :read, Case, id: user.cases.pluck(:id)
+      can :manage, Comment, :user_id => user.id  
     end
     # Define abilities for the passed in user here. For example:
     #

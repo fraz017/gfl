@@ -25,7 +25,7 @@
                 <th>Treatment Cost</th>
                 <th>Patient Name</th>
                 <th>Amount Recieved</th>
-                <th>Assigned Manager</th>
+                <th>Case Managers</th>
                 <th>State</th>
                 <th>Requests</th>
                 <th>Manage Case</th>
@@ -36,17 +36,11 @@
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
                   <td>
-                    <% if c.user %>
-                      <%= c.user.first_name %>
-                    <% else %>
-                      <%= select_tag :user_id, options_for_select(User.all.collect{ |u| [u.first_name, u.id] }), {:prompt=>"Select a Manager", class: "form-control", 
-                          data: {
-                            remote: true,
-                            url: manager_case_path(c)
-                          }
-                        }
-                      %>
-                    <% end %>  
+                    <ul>
+                      <% c.users.each do |u| %>
+                        <li><%= u.name_with_role %></li>
+                      <%end%>
+                    </ul>
                   </td>
                   <td><%= link_to 'Accept', accept_case_path(c), data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-success", :remote => true%>
                   <%= link_to 'Reject', reject_case_path(c), data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger", :remote => true %></td>
@@ -88,7 +82,7 @@
                   <th>Treatment Cost</th>
                   <th>Patient Name</th>
                   <th>Amount Recieved</th>
-                  <th>Assigned Manager</th>
+                  <th>Case Managers</th>
                   <th>State</th>
                   <th>Disbursments</th>
                   <th>Requests</th>
@@ -102,17 +96,11 @@
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
                   <td>
-                    <% if c.user %>
-                      <%= c.user.first_name %>
-                    <% else %>
-                      <%= select_tag :user_id, options_for_select(User.all.collect{ |u| [u.first_name, u.id] }), {:prompt=>"Select a Manager", class: "form-control", 
-                          data: {
-                            remote: true,
-                            url: manager_case_path(c)
-                          }
-                        }
-                      %>
-                    <% end %> 
+                    <ul>
+                      <% c.users.each do |u| %>
+                        <li><%= u.name_with_role %></li>
+                      <%end%>
+                    </ul>
                   </td>
                   <td><%= link_to 'Complete', close_case_path(c), data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-primary", :remote => true %></td>
                   <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
@@ -153,6 +141,7 @@
                 <th>Treatment Cost</th>
                 <th>Patient Name</th>
                 <th>Amount Recieved</th>
+                <th>Case Managers</th>
                 <th>State</th>
                 <th>Requests</th>
                 <th>Actions</th>
@@ -162,6 +151,13 @@
                   <td><%= c.budget %></td>
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
+                  <td>
+                    <ul>
+                      <% c.users.each do |u| %>
+                        <li><%= u.name_with_role %></li>
+                      <%end%>
+                    </ul>
+                  </td>
                   <td><span class="label label-danger"> Rejected </span></td>
                   <td>
                     <%if c.requests.count > 0%>
@@ -200,7 +196,7 @@
                 <th>Treatment Cost</th>
                 <th>Patient Name</th>
                 <th>Amount Recieved</th>
-                <th>Assigned Manager</th>
+                <th>Case Managers</th>
                 <th>State</th>
                 <th>Disbursments</th>
                 <th>Requests</th>
@@ -211,7 +207,13 @@
                   <td><%= c.budget %></td>
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
-                  <td><%= c.user.first_name %></td>
+                  <td>
+                    <ul>
+                      <% c.users.each do |u| %>
+                        <li><%= u.name_with_role %></li>
+                      <%end%>
+                    </ul>
+                  </td>
                   <td><span class="label label-primary"> Closed </span></td>
                   <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
                   <td>
@@ -251,7 +253,7 @@
                 <th>Treatment Cost</th>
                 <th>Patient Name</th>
                 <th>Amount Recieved</th>
-                <th>Assigned Manager</th>
+                <th>Case Managers</th>
                 <th>State</th>
                 <th>Disbursments</th>
                 <th>Requests</th>
@@ -262,7 +264,13 @@
                   <td><%= c.budget %></td>
                   <td><%= c.name %></td>
                   <td><%= c.recieved.to_f %></td>
-                  <td><%= c.user.first_name %></td>
+                  <td>
+                    <ul>
+                      <% c.users.each do |u| %>
+                        <li><%= u.name_with_role %></li>
+                      <%end%>
+                    </ul>
+                  </td>
                   <td><span class="label label-primary"> Closed </span></td>
                   <td><%= link_to 'Disbursments', case_disbursments_path(c), class: "btn btn-xs btn-info" %></td>
                   <td>
@@ -287,6 +295,49 @@
         </div><!-- /.box -->
       </div>
     </div>
+  <%elsif current_user.doctor?%>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Listing Cases</h3>
+          </div><!-- /.box-header -->
+          <br>
+
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover table-bordered">
+              <tbody><tr>
+                <th>Patient Name</th>
+                <th>Treatment Cost</th>  
+                <th>Actions</th>
+              </tr>
+              <%@cases.each do |c|%>
+                <tr>
+                  <td><%= c.name %></td>
+                  <td><%= c.budget %></td>
+                  <td>
+                    <% if can? :read, c %>
+                      <%= link_to 'Add Comments to Case', details_case_path(c), class: "btn btn-xs btn-success" %>
+                    <% end %>
+                    <% if can? :update, c %>
+                      <%= link_to 'Edit', edit_case_path(c), class: "btn btn-xs btn-warning" %>
+                    <%end%>
+                    <% if can? :destroy, c %>  
+                      <%= link_to 'Destroy', c, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %>
+                    <%end%>
+                  </td>
+                </tr>
+              <%end%>
+              <%if @cases.count < 1%>
+              <tr>
+                <td colspan="5" class="box-title"><h3>You don not have any assigned cases yet</h3></td>
+              </tr>
+              <%end%>
+            </tbody></table>
+          </div><!-- /.box-body -->
+        </div><!-- /.box -->
+      </div>
+    </div>  
   <%else%>
     <div class="row">
       <div class="col-xs-12">

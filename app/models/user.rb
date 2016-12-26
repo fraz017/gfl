@@ -8,14 +8,27 @@ class User < ActiveRecord::Base
 
   validates_presence_of :first_name, :last_name, :email
 
-  has_many :cases
+  has_and_belongs_to_many :cases
+
   def self.is_admin?
   	return true if role == :admin
-  	return false if role == :manager
+  	return false if role == :doctor
+    return false if role == :manager
   end
 
   def self.is_manager?
   	return false if role == :admin
-  	return true if role == :manager
+  	return false if role == :doctor
+    return true if role == :manager
+  end
+
+  def self.is_doctor?
+    return false if role == :admin
+    return false if role == :manager
+    return true if role == :doctor
+  end
+
+  def name_with_role
+    first_name << " " << last_name << " (" << role.to_s.titleize << ")"
   end       
 end

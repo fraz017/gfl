@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_path
   end
   def after_sign_in_path_for(resource)
-    if resource.role == :manager
-    	cases_path
-    elsif resource.role == :admin
+    if resource.role == :admin
     	reports_path
     else
     	cases_path

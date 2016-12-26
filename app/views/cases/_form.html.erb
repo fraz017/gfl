@@ -238,7 +238,7 @@
             <% if current_user.admin? %>
               <div class="form-group">
                 <label>Assign Manager</label>
-                <%= f.collection_select :user_id, User.all, :id, :first_name, {:prompt=>"Select a Manager"}, {:class=> "form-control"} %>
+                <%= f.collection_select :user_ids, User.all, :id, :name_with_role, {:prompt=>"Select a Manager"}, {:class=> "form-control", multiple: true} %>
               </div>
 
               <div class="form-group">
@@ -260,7 +260,17 @@
   $('.datepicker').datepicker({
     format: 'dd/mm/yyyy'
   });
+
+  $("#case_user_ids").select2({
+    placeholder: "Select a Manager"
+  })
 </script> 
+
+<style type="text/css">
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered li{
+    color: black;
+  }
+</style>
   
 
 

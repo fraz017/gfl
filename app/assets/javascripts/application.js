@@ -23,3 +23,4 @@
 //= require video
 //= require jquery_nested_form
 //= require autocomplete-rails
+//= require select2.min

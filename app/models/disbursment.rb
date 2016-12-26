@@ -1,5 +1,6 @@
 class Disbursment < ActiveRecord::Base
   belongs_to :case
+  belongs_to :user
   validates_presence_of :amount, :details
 
   has_attached_file :video

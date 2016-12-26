@@ -22,7 +22,10 @@ class CasesController < ApplicationController
   # GET /cases/1
   # GET /cases/1.json
   def show
-    @disbursments = @case.disbursments.order(id: :desc)
+    dis = @case.disbursments.order(id: :desc)
+    comments = @case.comments
+    @disbursments = dis+comments
+    @disbursments = @disbursments.sort_by(&:created_at)
   end
 
   # GET /cases/new

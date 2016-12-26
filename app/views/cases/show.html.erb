@@ -19,54 +19,64 @@
       <!-- The time line -->
       <ul class="timeline">
         <% @disbursments.each do |dis| %>
+          <%if dis.class == Disbursment%>
           <!-- timeline time label -->
-          <li class="time-label">
-            <span class="bg-green">
-              <%= dis.created_at.strftime("%-d %b. %Y at %l:%S %P") %>
-            </span>
-          </li>
-          <!-- END timeline item -->
-          <!-- timeline item -->
-          <li>
-            <i class="fa fa-money bg-purple"></i>
-            <div class="timeline-item">
-              <h3 class="timeline-header no-border"><b>Rs. <%= dis.amount %></b> Disbursed To this case</h3>
-            </div>
-          </li>
-          <!-- END timeline item -->
-          <!-- timeline item -->
-          <li>
-            <i class="fa fa-comments bg-yellow"></i>
-            <div class="timeline-item">
-              <h3 class="timeline-header">Case Disbursments Details and Comments</h3>
-              <div class="timeline-body">
-                <%= dis.details.html_safe %>
-              </div>
-            </div>
-          </li>
-          <%if dis.video_file_name.present?%>
+            <li class="time-label">
+              <span class="bg-green">
+                <%= dis.created_at.strftime("%-d %b. %Y at %l:%S %P") %>
+              </span>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
             <li>
-              <i class="fa fa-video-camera bg-maroon"></i>
+              <i class="fa fa-money bg-purple"></i>
               <div class="timeline-item">
-                <h3 class="timeline-header">Case Disbursment Related Video</h3>
+                <h3 class="timeline-header no-border"><b>Rs. <%= dis.amount %></b> Disbursed To this case by <%= dis.user.try(:first_name) %> <%= dis.user.try(:last_name) %></h3>
+              </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <li>
+              <i class="fa fa-comments bg-yellow"></i>
+              <div class="timeline-item">
+                <h3 class="timeline-header">Case Disbursments Details and Comments added by <b><%= dis.try(:user).try(:role).try(:to_s).try(:titleize)%></b> <%= dis.user.try(:first_name) %> <%= dis.user.try(:last_name) %></h3>
                 <div class="timeline-body">
-                  <%= videojs_rails source: dis.video.url, setup: "{}", controls: true, width:"100%", height: "450" %>
+                  <%= dis.details.html_safe %>
                 </div>
               </div>
             </li>
-          <%end%>
+            <%if dis.video_file_name.present?%>
+              <li>
+                <i class="fa fa-video-camera bg-maroon"></i>
+                <div class="timeline-item">
+                  <h3 class="timeline-header">Case Disbursment Related Video</h3>
+                  <div class="timeline-body">
+                    <%= videojs_rails source: dis.video.url, setup: "{}", controls: true, width:"100%", height: "450" %>
+                  </div>
+                </div>
+              </li>
+            <%end%>
+          <%else%>
+            <li class="time-label">
+              <span class="bg-green">
+                <%= dis.created_at.strftime("%-d %b. %Y at %l:%S %P") %>
+              </span>
+            </li>
+
+            <li>
+              <i class="fa fa-comments bg-yellow"></i>
+              <div class="timeline-item">
+                <h3 class="timeline-header">Comment added by <b><%= dis.user.role.to_s.titleize%></b> <%= dis.user.try(:first_name) %> <%= dis.user.try(:last_name) %></h3>
+                <div class="timeline-body">
+                  <%= dis.message %>
+                </div>
+              </div>
+            </li>
+          <%end%>  
         <%end%>
         <!-- END timeline item -->
         <!-- END timeline item -->
-        <%if @disbursments.count > 0%>
-          <li>
-            <i class="fa fa-clock-o bg-gray"></i>
-            <div class="timeline-item">
-              <h3 class="timeline-header">Case Disbursments Started by Manager <b><%= @case.user.try(:first_name) %> <%= @case.user.try(:last_name) %></b> on <%= @disbursments.last.created_at.strftime("%-d %b. %Y at %l:%S %P") %></h3>
-            </div>
-          </li>
-
-        <% else %>
+        <%if @disbursments.count <= 0%>
           <li>
             <i class="fa fa-clock-o bg-gray"></i>
             <div class="timeline-item">

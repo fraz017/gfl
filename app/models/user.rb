@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :cases
 
+  has_many :disbursments
+
   def self.is_admin?
   	return true if role == :admin
   	return false if role == :doctor

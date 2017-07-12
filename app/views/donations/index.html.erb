@@ -71,6 +71,7 @@
                   <th>Treatment Cost</th>
                   <th>Patient Name</th>
                   <th>Amount Recieved</th>
+                  <th>Users</th>
                   <th>Actions</th>
                 </tr>
                 <%@cases.each do |c|%>
@@ -79,8 +80,12 @@
                     <td><%= c.name %></td>
                     <td><%= c.recieved.to_f %></td>
                     <td>
-                      <% if c.user %>
-                        <%= c.user.first_name %>
+                      <% if c.users %>
+                        <ul>
+                          <% c.users.each do |u| %>
+                            <li><%= u.first_name %></li>
+                          <% end %>
+                        </ul>
                       <% else %>
                         <%= select_tag :user_id, options_for_select(User.all.collect{ |u| [u.first_name, u.id] }), {:prompt=>"Select a Manager", class: "form-control", 
                             data: {

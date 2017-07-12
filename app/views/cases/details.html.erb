@@ -185,6 +185,30 @@
         </div><!-- /.box-body -->
       </div>
     </div>
+    <div class="col-md-6">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Case Attachments</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-file margin-r-5"></i>  Media</strong>
+          <%@case.attachments.each do |post|%>
+            <p class="text-muted">
+              <%if post.file_content_type =~ %r(video)%>
+                <%= video_tag post.try(:file).try(:url), size: 400, controls: true %>
+              <%elsif post.file_content_type =~ %r(audio)%>
+                <%= audio_tag post.try(:file).try(:url), controls: true %>
+              <%else%>
+                <%= image_tag post.try(:file).try(:url).try(:medium), alt: "No Image Available", size: 400 %>
+              <%end%>
+            </p>
+          <% end %>
+          <% if @case.attachments.count < 1 %>
+            <p class="text-muted">No Attachments Present</p>
+          <% end %>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
   </div>  
   <div class="row">
     <div class="col-md-6">
